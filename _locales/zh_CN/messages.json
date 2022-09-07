@@ -1,0 +1,18 @@
+{
+  "extensionDesc": {
+    "message": "一个可在哈萨克语的阿拉伯字母和西里尔字母的书写方式间互相转化的插件",
+    "description": "一个可在哈萨克语的阿拉伯字母和西里尔字母的书写方式间互相转化的插件"
+  },
+  "extensionName": {
+    "message": "哈萨克文转化器",
+    "description": "转化器"
+  },
+  "contextMenuToCyrillic": {
+    "message": "转化到西里尔文字母",
+    "description": "转化到西里尔文字母"
+  },
+  "contextMenuToArabic": {
+    "message": "转化到阿拉伯文字母",
+    "description": "转化到阿拉伯文字母"
+  }
+}

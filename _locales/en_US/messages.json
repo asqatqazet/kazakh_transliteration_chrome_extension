@@ -1,0 +1,19 @@
+{
+  "extensionDesc": {
+    "message": "An extension converts the Kazakh text written in Cyrillic script to Arabic script, and vice versa.",
+    "description": "An extension converts the Kazakh text written in Cyrillic script to Arabic script, and vice versa."
+  },
+  "extensionName": {
+    "message": "Kazakh Script Helper",
+    "description": "Kazakh script helper"
+  },
+
+  "contextMenuToCyrillic": {
+    "message": "convert to Cyrillic script",
+    "description": "Kazakh script helper"
+  },
+  "contextMenuToArabic": {
+    "message": "convert to Arabic script",
+    "description": "Kazakh script helper"
+  }
+}

@@ -1,11 +1,12 @@
 {
-  "name": "Getting Started Example",
-  "description": "Build an Extension!",
+  "name": "__MSG_extensionName__",
+  "description": "__MSG_extensionDesc__",
   "version": "1.0",
   "manifest_version": 3,
   "background": {
     "service_worker": "background.js"
   },
+  "default_locale": "en_US",
   "minimum_chrome_version": "93",
   "permissions": [
     "activeTab",

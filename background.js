@@ -1,16 +1,19 @@
 // Holds the data structure for all the context menus used in the app
-var CONTEXT_MENU_CONTENTS = {
+const TO_ARABIC_SCRIPT = "TO_ARABIC_SCRIPT";
+const TO_CYRILLIC_SCRIPT = "TO_CYRILLIC_SCRIPT";
+const CONTEXT_MENU_CONTENTS = {
     forWindows: [
         {
-            id: "toCyrillicScript",
-            title: "Converter: to Kazakh Cyrillic Script",
+            id: TO_ARABIC_SCRIPT,
+            title: chrome.i18n.getMessage("contextMenuToArabic")
         },
         {
-            id: "toArabicScript",
-            title: "Converter: to Kazakh Arabic Script",
+            id: TO_CYRILLIC_SCRIPT,
+            title: chrome.i18n.getMessage("contextMenuToCyrillic")
         }
     ]
-}
+};
+
 CONTEXT_MENU_CONTENTS.forWindows.forEach((item) => {
     chrome.contextMenus.create({
         id: item.id,
@@ -23,12 +26,12 @@ CONTEXT_MENU_CONTENTS.forWindows.forEach((item) => {
 
 chrome.contextMenus.onClicked.addListener(function (onclickData) {
     let from, to;
-    if (onclickData.menuItemId === "toArabicScript") {
+    if (onclickData.menuItemId === TO_ARABIC_SCRIPT) {
         from = 'Cyrillic'
         to = 'Arabic'
     }
 
-    if (onclickData.menuItemId === "toCyrillicScript") {
+    if (onclickData.menuItemId === TO_CYRILLIC_SCRIPT) {
         from = 'Arabic'
         to = 'Cyrillic'
     }
