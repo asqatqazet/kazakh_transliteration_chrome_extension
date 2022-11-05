@@ -21,12 +21,89 @@ function traverseDOM(from, to) {
     }
 }
 
-chrome.runtime.onMessage.addListener(
-    function (request, sender, sendResponse) {
+function showConverted(container, convertedText, textAlign, badgeAlign) {
+
+    console.log(convertedText)
+    var html = `
+<dialog class="modal" id="kk-translit-modal">
+<span class="close-modal-x">&times;</span>
+<div class="modal-container">
+ <p>${convertedText}</p>
+</div>
+</dialog>
+<style id="modal-style">
+.modal-container {
+
+    text-align: ${textAlign};
+    border-radius: 0.5rem;
+    border: none;
+  padding: 1em;
+  max-width: 100ch;
+   box-shadow: 0 0 1em rgb(0 0 0 / .3);
+
+  & > * {
+    margin: 0 0 0.5rem 0;
+  }
+}
+
+.modal{
+
+z-index: 10;
+border:none;
+    min-width: 25ch;
+}
+
+.modal-container p{
+margin-top: 1.5rem;
+}
+.close-modal-x{
+margin-${badgeAlign}: .7ch;
+ position: absolute;
+  top: 0;
+  ${badgeAlign}: 0;
+  cursor: pointer;
+  font-weight: bold;
+      font-size: 3.5ch;
+}
+
+.modal::backdrop {
+  background: rgb(0 0 0 / 0.4);
+}
+</style>
+`
+    let div = document.createElement('div')
+    div.innerHTML = html;
+
+    container.parentNode.insertBefore(div, container.nextSibling)
+    const modal = document.querySelector("#kk-translit-modal");
+    const closeModal = document.querySelector(".close-modal-x");
+    modal.show();
+    closeModal.addEventListener("click", () => {
+        const style = document.querySelector("#modal-style");
+        style.remove();
+        modal.remove();
+    });
+
+}
+
+function findElem() {
+    var selection = window.getSelection()
+    return selection.anchorNode
+}
+
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    if (request.selectionText) {
+        let container = findElem();
+        let convertedText = convert(request.selectionText, request.to, request.from);
+        let textAlign = request.to === 'Arabic' ? 'right' : 'left';
+        let badgeAlign = request.to === 'Arabic' ? 'left' : 'right';
+        showConverted(container, convertedText, textAlign, badgeAlign)
+        sendResponse({response: 'ok'})
+    } else {
         traverseDOM(request.from, request.to)
         sendResponse({response: "ok"})
     }
-);
+});
 
 
 // 输入文本类型判断
@@ -43,8 +120,7 @@ function typeJudgment(string) {
             const matched = string.match(reg)
             const count = matched ? matched.length : 0
             charCountList.push({
-                key,
-                count
+                key, count
             })
         }
     }
@@ -71,7 +147,7 @@ class Converter {
         return a.replace(toteReg, function (d) {
             function b(c) {
                 return c.replace(/\u0621/g, '')
-            };
+            }
             return (d.search(/\u0621/) >= 0 && d.search(/[\u06af\u0643\u06d5]/) < 0) ? 'ء' + b(d) : b(d)
         })
     }
@@ -99,7 +175,7 @@ class Converter {
                 val = val.replace(/ұ/, 'Ү')
                 val = val.replace(/\u0621/g, '')
             }
-            ;
+
             return val
         })
         return initials(a)
@@ -109,23 +185,13 @@ class Converter {
         function repair(val) {
             const b = ["c'", 'f', 'v', 'tele', "i'ka", "i'o'n", "ju'n'go", "[ln]i'[sz]"]
             const c = "([a-dfh-jl-z']*|g'*)"
-            val = val.replace(
-                new RegExp("g'" + c + '|[qh]' + c + "|(a'.a')" + c + '|([er])' + c + '([ao])' + c + "|([a-z']*)(" + b.join('|') + ")([a-z']*)", 'gi'),
-                function (str) {
-                    return str.replace(/([aou])'/gi, '$1')
-                }
-            )
-            val = val.replace(
-                new RegExp("g'" + c + '|[qh]' + c + "|[aou](?!')" + c, 'gi'),
-                function (str) {
-                    return str.replace(/i(?!')/gi, 'y')
-                }
-            )
-            return replaceStr(val,
-                ["ko'lba'i'", "a'y'zimen", "ba'simen"],
-                ["ko'lbai'", "ay'zymen", 'basymen'],
-                'gi'
-            )
+            val = val.replace(new RegExp("g'" + c + '|[qh]' + c + "|(a'.a')" + c + '|([er])' + c + '([ao])' + c + "|([a-z']*)(" + b.join('|') + ")([a-z']*)", 'gi'), function (str) {
+                return str.replace(/([aou])'/gi, '$1')
+            })
+            val = val.replace(new RegExp("g'" + c + '|[qh]' + c + "|[aou](?!')" + c, 'gi'), function (str) {
+                return str.replace(/i(?!')/gi, 'y')
+            })
+            return replaceStr(val, ["ko'lba'i'", "a'y'zimen", "ba'simen"], ["ko'lbai'", "ay'zymen", 'basymen'], 'gi')
         }
 
         function initials(val) {
@@ -147,7 +213,6 @@ class Converter {
                 val = val.replace(/y(?!')/g, 'i')
                 val = val.replace(/\u0621/g, '')
             }
-            ;
             return repair(val)
         })
         return initials(a)
@@ -156,10 +221,7 @@ class Converter {
     latin2cyrillic(a) {
         a = a.replace(/[\u2019\u2018\u0060]/g, "'")
         a = a.replace(/([bdf-hj-np-tvz]|[cgnsy]')(i')(a)/gi, '$1$2$2$3')
-        a = replaceStr(a,
-            ["A'", "a'", "C'", "c'", "G'", "g'", "I'", "i'", "N'", "n'", "O'", "o'", "S'", "s'", "U'", "u'", "Y'", "y'", 'A', 'a', 'B', 'b', 'D', 'd', 'E', 'e', 'F', 'f', 'G', 'g', 'H', 'h', 'I', 'i', 'J', 'j', 'K', 'k', 'L', 'l', 'M', 'm', 'N', 'n', 'O', 'o', 'P', 'p', 'Q', 'q', 'R', 'r', 'S', 's', 'T', 't', 'U', 'u', 'V', 'v', 'Y', 'y', 'Z', 'z'],
-            ['Ә', 'ә', 'Ч', 'ч', 'Ғ', 'ғ', 'И', 'и', 'Ң', 'ң', 'Ө', 'ө', 'Ш', 'ш', 'Ү', 'ү', 'У', 'у', 'А', 'а', 'Б', 'б', 'Д', 'д', 'Е', 'е', 'Ф', 'ф', 'Г', 'г', 'Х', 'х', 'І', 'і', 'Ж', 'ж', 'К', 'к', 'Л', 'л', 'М', 'м', 'Н', 'н', 'О', 'о', 'П', 'п', 'Қ', 'қ', 'Р', 'р', 'С', 'с', 'Т', 'т', 'Ұ', 'ұ', 'В', 'в', 'Ы', 'ы', 'З', 'з']
-        )
+        a = replaceStr(a, ["A'", "a'", "C'", "c'", "G'", "g'", "I'", "i'", "N'", "n'", "O'", "o'", "S'", "s'", "U'", "u'", "Y'", "y'", 'A', 'a', 'B', 'b', 'D', 'd', 'E', 'e', 'F', 'f', 'G', 'g', 'H', 'h', 'I', 'i', 'J', 'j', 'K', 'k', 'L', 'l', 'M', 'm', 'N', 'n', 'O', 'o', 'P', 'p', 'Q', 'q', 'R', 'r', 'S', 's', 'T', 't', 'U', 'u', 'V', 'v', 'Y', 'y', 'Z', 'z'], ['Ә', 'ә', 'Ч', 'ч', 'Ғ', 'ғ', 'И', 'и', 'Ң', 'ң', 'Ө', 'ө', 'Ш', 'ш', 'Ү', 'ү', 'У', 'у', 'А', 'а', 'Б', 'б', 'Д', 'д', 'Е', 'е', 'Ф', 'ф', 'Г', 'г', 'Х', 'х', 'І', 'і', 'Ж', 'ж', 'К', 'к', 'Л', 'л', 'М', 'м', 'Н', 'н', 'О', 'о', 'П', 'п', 'Қ', 'қ', 'Р', 'р', 'С', 'с', 'Т', 'т', 'Ұ', 'ұ', 'В', 'в', 'Ы', 'ы', 'З', 'з'])
         a = a.replace(/([АаӘәОоӨөҰұҮүЫыІіЕе])и/g, '$1й')
         a = a.replace(/([АаӘәОоӨөҰұҮүЫыІіЕе])И/g, '$1Й')
         a = a.replace(/[ий][АаӘә]/g, 'я')

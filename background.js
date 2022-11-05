@@ -18,13 +18,15 @@ CONTEXT_MENU_CONTENTS.forWindows.forEach((item) => {
     chrome.contextMenus.create({
         id: item.id,
         title: item.title,
-        contexts: ["page"],
-    }, () => {
-        console.log(chrome.lastError)
-    });
+        contexts: ["page", "selection"],
+    }, () => {});
 })
 
 chrome.contextMenus.onClicked.addListener(function (onclickData) {
+    let selectionText = ""
+    if (onclickData.selectionText) {
+        selectionText = onclickData.selectionText.toString();
+    }
     let from, to;
     if (onclickData.menuItemId === TO_ARABIC_SCRIPT) {
         from = 'Cyrillic'
@@ -39,10 +41,10 @@ chrome.contextMenus.onClicked.addListener(function (onclickData) {
     chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
         if (tabs.length !== 0)
             chrome.tabs.sendMessage(tabs[0].id, {
+                selectionText: selectionText,
                 from: from,
                 to: to
             }, function (response) {
-                console.log(chrome.lastError)
                 console.log(response);
             });
     });
