@@ -1,6 +1,7 @@
 function traverseDOM(from, to) {
-    const rootNode = document.getRootNode()
+    const rootNode = document.body
     const queue = [rootNode];
+    const direction = to === 'Arabic' ? 'rtl' : "ltr";
 
     while (queue.length !== 0) {
         const node = queue.shift()
@@ -11,7 +12,10 @@ function traverseDOM(from, to) {
         } else {
             try {
 
-                if (node.nodeType === Node.TEXT_NODE && node.textContent !== "\n") {
+                if (node.nodeType === Node.TEXT_NODE && node.parentNode.nodeType === Node.ELEMENT_NODE && node.textContent !== "\n") {
+                    console.log(node.textContent)
+                    // node.parentNode.style.textAlign = 'right'
+                    node.parentNode.style.direction = direction
                     node.textContent = convert(node.textContent, to, from)
                 }
             } catch (err) {
@@ -148,6 +152,7 @@ class Converter {
             function b(c) {
                 return c.replace(/\u0621/g, '')
             }
+
             return (d.search(/\u0621/) >= 0 && d.search(/[\u06af\u0643\u06d5]/) < 0) ? 'ء' + b(d) : b(d)
         })
     }
