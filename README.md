@@ -7,6 +7,45 @@ Chrome extension that transliterates Kazakh text between three writing systems:
 
 Right-click selected Kazakh text on any web page to convert it. The result appears in a Shadow-DOM modal that can't be styled by the host page. A toolbar popup adds whole-page conversion.
 
+## Install (end users)
+
+The extension is not on the Chrome Web Store. To use it, build it once and load it as an unpacked extension:
+
+```bash
+git clone https://github.com/asqatqazet/kazakh_transliteration_chrome_extension.git
+cd kazakh_transliteration_chrome_extension
+pnpm install        # one-time; installs build deps
+pnpm build          # produces .output/chrome-mv3/
+```
+
+Then in Chrome:
+
+1. Open `chrome://extensions`
+2. Toggle **Developer mode** on (top-right)
+3. Click **Load unpacked** and select the `.output/chrome-mv3/` folder
+4. The Kazakh Script Helper icon appears in the toolbar
+
+To update later: `git pull && pnpm build`, then click the **reload** (↻) button on the extension card.
+
+## Use it
+
+**Convert a selection** — highlight Kazakh text on any page, right-click, and pick one of:
+- *Convert to Cyrillic script*
+- *Convert to Arabic script*
+- *Convert to Latin script (2021)*
+
+The converted text appears in a small dialog. Press **Esc** or click outside to dismiss.
+
+**Convert a whole page** — click the toolbar icon, pick the target script, and click *Convert whole page*. Text is rewritten in place; reload the page to revert. `<code>`, `<pre>`, `<textarea>`, and other code-like elements are skipped automatically.
+
+**Adjust behaviour** — click the toolbar icon, then *Options*. You can:
+- Toggle whether И, Й, І collapse to one Latin letter (or disambiguate І as `ı`/`I`)
+- Toggle whether Х, Һ collapse to `H` (or render Һ as `Ḣ`/`ḣ`)
+- Choose how loanword letters (Ё, Ц, Ч, Щ, Ъ, Ь, Э, Ю, Я) are handled
+- Add domains to skip (one per line; matches the host or any subdomain)
+
+Mark any element you don't want touched with `data-no-translit` and the page walker will leave it alone.
+
 ## Status
 
 v2.0 is a from-scratch rewrite of the original v1.0. The Cyrillic↔Arabic converter is byte-identical to v1 (locked in by snapshot tests against the legacy code's output). The Latin direction is new.
