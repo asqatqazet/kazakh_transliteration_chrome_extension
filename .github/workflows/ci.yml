@@ -30,6 +30,7 @@ jobs:
       - run: pnpm test
 
       - run: pnpm build
-
-      - name: Validate manifest with web-ext
-        run: pnpm dlx web-ext lint --source-dir .output/chrome-mv3 --warnings-as-errors=false
+      # web-ext lint deferred — its checks target Firefox compatibility
+      # (browser_specific_settings.gecko.id, scripts fallback for the
+      # service worker), which v2.0 doesn't ship. Re-enable when the
+      # Firefox build lands.
