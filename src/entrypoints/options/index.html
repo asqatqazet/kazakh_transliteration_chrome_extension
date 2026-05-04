@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>__MSG_optionsTitle__</title>
+    <link rel="stylesheet" href="./options.css" />
+  </head>
+  <body>
+    <h1 id="title">Kazakh Script Helper Options</h1>
+
+    <fieldset>
+      <legend id="latinLegend">Latin variant</legend>
+
+      <label class="checkbox">
+        <input type="checkbox" id="collapseIyy" />
+        <span id="collapseIyyLabel"></span>
+      </label>
+
+      <label class="checkbox">
+        <input type="checkbox" id="collapseHh" />
+        <span id="collapseHhLabel"></span>
+      </label>
+
+      <label>
+        <span id="loanwordLabel"></span>
+        <select id="loanwordPolicy">
+          <option value="transliterate" id="loanTranslitOpt"></option>
+          <option value="drop" id="loanDropOpt"></option>
+        </select>
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend id="exclusionLegend">Excluded domains</legend>
+      <label>
+        <span id="exclusionLabel"></span>
+        <textarea
+          id="excludedDomains"
+          placeholder="example.com&#10;wikipedia.org"
+          spellcheck="false"
+        ></textarea>
+      </label>
+    </fieldset>
+
+    <div class="actions">
+      <button id="save">Save</button>
+      <span id="status"></span>
+    </div>
+
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

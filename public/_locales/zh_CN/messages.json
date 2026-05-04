@@ -1,0 +1,94 @@
+{
+  "extensionName": {
+    "message": "哈萨克文转化器",
+    "description": "扩展名称"
+  },
+  "extensionDesc": {
+    "message": "在哈萨克语的西里尔字母、阿拉伯字母和拉丁字母（2021）三种书写方式间互相转换。",
+    "description": "扩展描述"
+  },
+  "contextMenuToArabic": {
+    "message": "转换到阿拉伯文字母",
+    "description": "右键菜单项"
+  },
+  "contextMenuToCyrillic": {
+    "message": "转换到西里尔文字母",
+    "description": "右键菜单项"
+  },
+  "contextMenuToLatin": {
+    "message": "转换到拉丁字母（2021）",
+    "description": "右键菜单项"
+  },
+  "popupTitle": {
+    "message": "哈萨克文转化器",
+    "description": "弹窗标题"
+  },
+  "popupConvertSelection": {
+    "message": "转换所选文本",
+    "description": "弹窗按钮"
+  },
+  "popupConvertPage": {
+    "message": "转换整个页面",
+    "description": "弹窗按钮"
+  },
+  "popupTargetLabel": {
+    "message": "目标字母",
+    "description": "弹窗下拉标签"
+  },
+  "popupOpenOptions": {
+    "message": "选项",
+    "description": "弹窗链接"
+  },
+  "scriptCyrillic": {
+    "message": "西里尔",
+    "description": "字母名称"
+  },
+  "scriptArabic": {
+    "message": "阿拉伯",
+    "description": "字母名称"
+  },
+  "scriptLatin": {
+    "message": "拉丁（2021）",
+    "description": "字母名称"
+  },
+  "optionsTitle": {
+    "message": "哈萨克文转化器选项",
+    "description": "选项页标题"
+  },
+  "optionsLatinVariant": {
+    "message": "拉丁变体",
+    "description": "选项标签"
+  },
+  "optionsCollapseIyy": {
+    "message": "将 И/Й/І 合并为同一拉丁字母",
+    "description": "选项开关"
+  },
+  "optionsCollapseHh": {
+    "message": "将 Х/Һ 合并为 H",
+    "description": "选项开关"
+  },
+  "optionsLoanwordPolicy": {
+    "message": "外来字母处理（Ё、Ц、Ч、Щ、Ъ、Ь、Э、Ю、Я）",
+    "description": "选项标签"
+  },
+  "optionsLoanwordTransliterate": {
+    "message": "音译（Io、Ts、Ch …）",
+    "description": "选项值"
+  },
+  "optionsLoanwordDrop": {
+    "message": "丢弃（纯 28 字母）",
+    "description": "选项值"
+  },
+  "optionsExclusionList": {
+    "message": "排除的域名（每行一个）",
+    "description": "选项文本框标签"
+  },
+  "optionsSave": {
+    "message": "保存",
+    "description": "保存按钮"
+  },
+  "optionsSaved": {
+    "message": "已保存",
+    "description": "保存提示"
+  }
+}
