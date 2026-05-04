@@ -9,23 +9,18 @@ Right-click selected Kazakh text on any web page to convert it. The result appea
 
 ## Install (end users)
 
-The extension is not on the Chrome Web Store. To use it, build it once and load it as an unpacked extension:
+The extension is not on the Chrome Web Store. The easiest way to use it:
 
-```bash
-git clone https://github.com/asqatqazet/kazakh_transliteration_chrome_extension.git
-cd kazakh_transliteration_chrome_extension
-pnpm install        # one-time; installs build deps
-pnpm build          # produces .output/chrome-mv3/
-```
+1. Go to [Releases](https://github.com/asqatqazet/kazakh_transliteration_chrome_extension/releases) and download the latest `kazakh-script-helper-*-chrome.zip`.
+2. Unzip it anywhere on your computer.
+3. In Chrome, open `chrome://extensions`.
+4. Toggle **Developer mode** on (top-right).
+5. Click **Load unpacked** and select the unzipped folder.
+6. The Kazakh Script Helper icon appears in the toolbar.
 
-Then in Chrome:
+To update later: download the new release zip, unzip over the old folder, then click the **reload** (↻) button on the extension card in `chrome://extensions`.
 
-1. Open `chrome://extensions`
-2. Toggle **Developer mode** on (top-right)
-3. Click **Load unpacked** and select the `.output/chrome-mv3/` folder
-4. The Kazakh Script Helper icon appears in the toolbar
-
-To update later: `git pull && pnpm build`, then click the **reload** (↻) button on the extension card.
+> No release yet? You can either build from source (see [Install for development](#install-for-development) below) or grab the build artifact from the latest CI run on the [Actions tab](https://github.com/asqatqazet/kazakh_transliteration_chrome_extension/actions) (artifact name `kazakh-script-helper-chrome-mv3`, retained 14 days).
 
 ## Use it
 
@@ -79,7 +74,18 @@ pnpm lint           # eslint flat config
 pnpm format         # prettier --write
 ```
 
-CI runs all four on every push and PR (see `.github/workflows/ci.yml`).
+CI runs all four on every push and PR and uploads the built extension as a workflow artifact (see `.github/workflows/ci.yml`).
+
+## Cutting a release
+
+Tag-based — push a `v*` tag and `.github/workflows/release.yml` builds, zips, and attaches the zip to a new GitHub Release:
+
+```bash
+git tag v2.0.0
+git push origin v2.0.0
+```
+
+You can also trigger it manually from the Actions tab (workflow_dispatch input `tag`).
 
 ## Project layout
 
