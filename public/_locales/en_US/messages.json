@@ -1,0 +1,94 @@
+{
+  "extensionName": {
+    "message": "Kazakh Script Helper",
+    "description": "Extension name shown in toolbar and store"
+  },
+  "extensionDesc": {
+    "message": "Transliterate Kazakh text between Cyrillic, Perso-Arabic, and Latin (2021) scripts.",
+    "description": "Extension description shown in store"
+  },
+  "contextMenuToArabic": {
+    "message": "Convert to Arabic script",
+    "description": "Right-click menu item: convert selection to Perso-Arabic Kazakh"
+  },
+  "contextMenuToCyrillic": {
+    "message": "Convert to Cyrillic script",
+    "description": "Right-click menu item: convert selection to Cyrillic Kazakh"
+  },
+  "contextMenuToLatin": {
+    "message": "Convert to Latin script (2021)",
+    "description": "Right-click menu item: convert selection to Latin Kazakh"
+  },
+  "popupTitle": {
+    "message": "Kazakh Script Helper",
+    "description": "Popup heading"
+  },
+  "popupConvertSelection": {
+    "message": "Convert selection",
+    "description": "Popup button"
+  },
+  "popupConvertPage": {
+    "message": "Convert whole page",
+    "description": "Popup button"
+  },
+  "popupTargetLabel": {
+    "message": "Target script",
+    "description": "Popup target picker label"
+  },
+  "popupOpenOptions": {
+    "message": "Options",
+    "description": "Popup link to options page"
+  },
+  "scriptCyrillic": {
+    "message": "Cyrillic",
+    "description": "Script name"
+  },
+  "scriptArabic": {
+    "message": "Arabic",
+    "description": "Script name"
+  },
+  "scriptLatin": {
+    "message": "Latin (2021)",
+    "description": "Script name"
+  },
+  "optionsTitle": {
+    "message": "Kazakh Script Helper Options",
+    "description": "Options page heading"
+  },
+  "optionsLatinVariant": {
+    "message": "Latin variant",
+    "description": "Options section label"
+  },
+  "optionsCollapseIyy": {
+    "message": "Collapse И/Й/І to a single Latin letter",
+    "description": "Options toggle"
+  },
+  "optionsCollapseHh": {
+    "message": "Collapse Х/Һ to H",
+    "description": "Options toggle"
+  },
+  "optionsLoanwordPolicy": {
+    "message": "Loanword letter policy (Ё, Ц, Ч, Щ, Ъ, Ь, Э, Ю, Я)",
+    "description": "Options select label"
+  },
+  "optionsLoanwordTransliterate": {
+    "message": "Transliterate (Io, Ts, Ch, …)",
+    "description": "Options value"
+  },
+  "optionsLoanwordDrop": {
+    "message": "Drop (purist 28-letter)",
+    "description": "Options value"
+  },
+  "optionsExclusionList": {
+    "message": "Excluded domains (one per line)",
+    "description": "Options textarea label"
+  },
+  "optionsSave": {
+    "message": "Save",
+    "description": "Options save button"
+  },
+  "optionsSaved": {
+    "message": "Saved",
+    "description": "Options save confirmation"
+  }
+}

@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>__MSG_popupTitle__</title>
+    <link rel="stylesheet" href="./popup.css" />
+  </head>
+  <body>
+    <h1 id="title">Kazakh Script Helper</h1>
+
+    <label for="target" id="targetLabel">Target script</label>
+    <select id="target">
+      <option value="Cyrillic">Cyrillic</option>
+      <option value="Arabic">Arabic</option>
+      <option value="Latin">Latin (2021)</option>
+    </select>
+
+    <button id="convertSelection" class="primary">Convert selection</button>
+    <button id="convertPage">Convert whole page</button>
+
+    <div id="status" class="status"></div>
+
+    <button id="openOptions" class="options-link">Options</button>
+
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
